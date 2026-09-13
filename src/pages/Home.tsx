@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { Avatar, Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
 import { useDataZ } from "../app/users"
 import type { RootState } from "../store/store"
-import { deleteUserR, setStatusFilter } from "../store/userSlice"
+import { deleteUserR, editUserR, setStatusFilter } from "../store/userSlice"
 import AddModal from "../components/AddModal"
 import EditModal from "../components/EditModal"
 import { useNavigate } from "react-router"
+import Checkbox from '@mui/material/Checkbox';
+
+const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
+
 
 export default function Home() {
     const navigate = useNavigate()
@@ -91,6 +95,17 @@ export default function Home() {
                                     </TableCell>
                                     <TableCell>
                                         <Box sx={{ display: "flex", gap: 1 }}>
+                                            <Checkbox
+                                                checked={el.status}
+                                                onChange={() => {
+                                                    dispatch(editUserR({
+                                                        id: el.id,
+                                                        age: Number(el.age),
+                                                        status: !el.status,
+                                                        position: String(el.position)
+                                                    }))
+                                                }}
+                                            />
                                             <Button size="small" variant="outlined" onClick={() => { setSelectedUser(el); setOpenEdit(true) }}>Edit</Button>
                                             <Button size="small" variant="outlined" color="success" onClick={() => navigate(`/info/${el.id}`)}>Info</Button>
                                             <Button size="small" variant="outlined" color="error" onClick={() => { dispatch(deleteUserR(el.id)); deleteUserZ(el.id) }}>Delete</Button>
