@@ -9,8 +9,6 @@ import EditModal from "../components/EditModal"
 import { useNavigate } from "react-router"
 import Checkbox from '@mui/material/Checkbox';
 
-const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
-
 
 export default function Home() {
     const navigate = useNavigate()
